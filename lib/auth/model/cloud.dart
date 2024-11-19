@@ -1,10 +1,12 @@
 class Cloud {
   Locations? locations;
   Currents? currents;
+  Forecast? forecast;
 
   Cloud({
     this.currents,
-    this.locations
+    this.locations,
+    this.forecast,
 });
 
   factory Cloud.fromJson(Map<String, dynamic> json) {
@@ -15,13 +17,17 @@ class Cloud {
       locations: json['location'] != null
           ? Locations.fromJson(json['location'])
           : null,
+      forecast: json['forecast'] != null
+          ? Forecast.fromJson(json['forecast'])
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'current': currents?.toJson(),
-      'location': locations?.toJson()
+      'location': locations?.toJson(),
+      'forecast': forecast?.toJson(),
     };
   }
 }
@@ -116,4 +122,103 @@ class Conditions {
       'icon': icon
     };
   }
+}
+
+class Forecast {
+  List<ForecastDay>? forecastday;
+
+  Forecast({
+    this.forecastday,
+});
+
+  factory Forecast.fromJson(Map<String, dynamic> json) {
+    return Forecast(
+      forecastday: (json['forecastday'] as List<dynamic>)
+          .map((e) => ForecastDay.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'forecastday': forecastday?.map((e) => e.toJson()).toList(),
+    };
+  }
+}
+
+class ForecastDay {
+  List<Hour>? hours;
+
+  ForecastDay({
+    this.hours,
+});
+
+  factory ForecastDay.fromJson(Map<String, dynamic> json) {
+    return ForecastDay(
+      hours: (json['hour'] as List<dynamic>)
+          .map((e) => Hour.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'hour': hours?.map((e) => e.toJson()).toList(),
+    };
+  }
+}
+
+class Hour {
+  String? time;
+  double? temp_c;
+  int? humidity;
+  ConditionWeather? txt;
+
+  Hour({
+    this.humidity,
+    this.temp_c,
+    this.time,
+    this.txt,
+});
+
+  factory Hour.fromJson(Map<String, dynamic> json) {
+    return Hour(
+      humidity: json['humidity'] ?? 0,
+      temp_c: json['temp_c'] ?? '',
+      time: json['time'] ?? '',
+      txt: json['condition'] != null
+        ? ConditionWeather.fromJson(json['condition'])
+        : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'humidity': humidity,
+      'temp_c': temp_c,
+      'time': time,
+      'condition': txt?.toJson(),
+    };
+  }
+}
+
+class ConditionWeather {
+  String? txtWeather;
+
+  ConditionWeather({
+    this.txtWeather,
+});
+
+  factory ConditionWeather.fromJson(Map<String, dynamic> json) {
+    return ConditionWeather(
+      txtWeather: json['text'] ?? ''
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'text': txtWeather
+    };
+  }
+
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
-import '../home.controller.dart';
+import '../home/home.controller.dart';
 
 class Verify extends GetView<HomeController> {
   const Verify({super.key});
@@ -13,7 +13,7 @@ class Verify extends GetView<HomeController> {
         child: Center(
           child: ElevatedButton(
               onPressed: () {
-                controller.weather();
+                controller.getCurrentLocationAndFetchWeather();
               },
               child: const Text('Lanjut')),
         ),

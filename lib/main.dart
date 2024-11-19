@@ -13,11 +13,11 @@ import 'auth/utils/storage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Menyimpan token
-  String token = "0eebf592bc10442ab0c25754241811";
-  Storage.token = token;
-
-  // Mengambil token
-  print("Stored Token: ${Storage.token}");  // Output: Stored Token: thisIsTheTokenValue12345
+  // String token = "0eebf592bc10442ab0c25754241811";
+  // Storage.token = token;
+  //
+  // // Mengambil token
+  // print("Stored Token: ${Storage.token}");  // Output: Stored Token: thisIsTheTokenValue12345
 
   // // Mengosongkan token
   // Storage.clearToken();
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
       ),
       defaultTransition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 500),
-      initialRoute: Routes.init,
+      initialRoute: Routes.splash,
       getPages: pages,
       builder: EasyLoading.init(), //init dahulu
     );
