@@ -232,7 +232,7 @@ class HomePage extends GetView<HomeController> {
                                 // Format and display the temperature as time (HH:mm)
                                 // If item.temp_c is not a timestamp, we need to display it as a default value.
                                 Text(
-                                  item.temp_c?.toStringAsFixed(1) ?? '0.0', // Default value if temp_c is null
+                                  "${item.temp_c?.toStringAsFixed(1) ?? '0.0'} C", // Default value if temp_c is null
                                   style: GoogleFonts.poppins(
                                     fontSize: 15,
                                     color: Colors.white,
@@ -245,7 +245,7 @@ class HomePage extends GetView<HomeController> {
                                         height: 15,
                                         child: Image.asset('assets/images/water.png')),
                                     Text(
-                                      (int.tryParse(item.humidity.toString() ?? '') ?? 0).toString(),
+                                      '${(int.tryParse(item.humidity.toString()) ?? 0)} %',
                                       style: GoogleFonts.poppins(
                                         fontSize: 15,
                                         color: Colors.white,
@@ -271,6 +271,169 @@ class HomePage extends GetView<HomeController> {
                       ),
                     ),
                   ),
+              Positioned(
+                bottom: 200,
+                left: 40,
+                right: 40,
+                child: Column(
+                  children: [
+                    // Indeks UV
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.sunny,
+                          color: Colors.yellow,
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Indeks UV',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Obx(() => Text(
+                          "${controller.cloudWeather.value.currents?.uv ?? 'High'}",
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        )),
+                      ],
+                    ),
+                    const SizedBox(height: 7),
+
+                    // Sunset
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.sunny_snowing,
+                          color: Colors.grey,
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Sunset',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Obx(() => Text(
+                          controller.astrodWeather.value.sunset ?? '',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        )),
+                      ],
+                    ),
+                    const SizedBox(height: 7),
+
+                    // Sunrise
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.sunny_snowing,
+                          color: Colors.yellowAccent,
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Sunrise',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Obx(() => Text(
+                          controller.astrodWeather.value.sunrise ?? '',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        )),
+                      ],
+                    ),
+                    const SizedBox(height: 7),
+
+                    // Wind
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.wind_power,
+                          color: Colors.grey,
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Wind',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Obx(() => Text(
+                          "${controller.cloudWeather.value.currents?.wind ?? ''} kph",
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        )),
+                      ],
+                    ),
+                    const SizedBox(height: 7),
+
+                    // Humidity
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.water_drop_sharp,
+                          color: Colors.blue,
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Humidity',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Obx(() => Text(
+                          "${controller.cloudWeather.value.currents?.humidity ?? ''} %",
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        )),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
             ]),
       ),
     );

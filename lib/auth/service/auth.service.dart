@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:weather_apps/auth/model/cloud.dart';
 
@@ -18,6 +20,29 @@ class AuthService {
       } else {
         throw Exception('Failed to retrieve Cloud data');
       }
+    } on dio.DioError catch(_) {
+      EasyLoading.dismiss();
+      EasyLoading.showError('Gagal terhubung ke Server. Coba lagi!');
+      throw Exception(_.message);
+    }
+  }
+
+  Future<Astro> cloudAstro(Map<String, dynamic> data) async {
+    try {
+      dio.Response response = await httpClient.post(ApiConstant.forecast, data: data, useFormData: true);
+      final body = response.data;
+
+      if (body is Map && body['forecast'] is Map) {
+        var forecastday = body['forecast']['forecastday'];
+
+        if (forecastday is List && forecastday.isNotEmpty) {
+          var astroData = forecastday[0]['astro'];
+          if (astroData != null) {
+            return Astro.fromJson(astroData);  // Kembalikan objek Astro
+          }
+        }
+      }
+      throw Exception('Data tidak valid');
     } on dio.DioError catch(_) {
       EasyLoading.dismiss();
       EasyLoading.showError('Gagal terhubung ke Server. Coba lagi!');

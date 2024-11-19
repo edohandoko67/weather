@@ -68,6 +68,7 @@ class Currents {
   double? wind;
   double? feelsCelcius;
   double? uv;
+  int? humidity;
   Conditions? conditions;
 
   Currents({
@@ -75,7 +76,8 @@ class Currents {
     this.feelsCelcius,
     this.uv,
     this.wind,
-    this.conditions
+    this.conditions,
+    this.humidity,
 });
 
   factory Currents.fromJson(Map<String, dynamic> json) {
@@ -86,7 +88,8 @@ class Currents {
       uv: json['uv'] ?? '',
       conditions: json['condition'] != null
           ? Conditions.fromJson(json['condition'])
-          : null
+          : null,
+      humidity: json['humidity'] ?? 0
     );
   }
   Map<String, dynamic> toJson() {
@@ -95,7 +98,8 @@ class Currents {
       'wind_kph': wind,
       'feelslike_c': feelsCelcius,
       'uv': uv,
-      'condition': conditions?.toJson()
+      'condition': conditions?.toJson(),
+      'humidity': humidity,
     };
   }
 }
@@ -148,9 +152,11 @@ class Forecast {
 
 class ForecastDay {
   List<Hour>? hours;
+  Astro? astro;
 
   ForecastDay({
     this.hours,
+    this.astro,
 });
 
   factory ForecastDay.fromJson(Map<String, dynamic> json) {
@@ -158,12 +164,16 @@ class ForecastDay {
       hours: (json['hour'] as List<dynamic>)
           .map((e) => Hour.fromJson(e as Map<String, dynamic>))
           .toList(),
+      astro: json['astro'] != null
+        ? Astro.fromJson(json['astro'])
+        : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'hour': hours?.map((e) => e.toJson()).toList(),
+      'astro': astro?.toJson(),
     };
   }
 }
@@ -220,5 +230,28 @@ class ConditionWeather {
       'text': txtWeather
     };
   }
+}
 
+class Astro {
+  String? sunrise;
+  String? sunset;
+
+  Astro({
+    this.sunrise,
+    this.sunset,
+});
+
+  factory Astro.fromJson(Map<String, dynamic> json) {
+    return Astro(
+      sunrise: json['sunrise'] ?? '',
+      sunset: json['sunset'] ?? ''
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'sunrise': sunrise,
+      'sunset': sunset,
+    };
+  }
 }

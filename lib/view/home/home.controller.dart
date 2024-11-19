@@ -137,6 +137,7 @@ class HomeController extends GetxController {
       // Memanggil fungsi weather dengan q menggunakan lokasi yang terdeteksi (latitude dan longitude)
       await weather(position.latitude, position.longitude);
       await weathers(position.latitude, position.longitude);
+      await astroWeathers(position.latitude, position.longitude);
     } else {
       EasyLoading.showError('Izin lokasi tidak tersedia');
     }
@@ -150,6 +151,7 @@ class HomeController extends GetxController {
       'q': '$latitude,$longitude',
       'key': token,
     });
+    print('indeks uv: ${cloudWeather.value.currents?.uv}');
     if (cloudWeather != null ) {
       Get.toNamed(Routes.home);
     } else {
@@ -165,5 +167,16 @@ class HomeController extends GetxController {
       'key': token,
     });
   }
+
+  Rx<Astro> astrodWeather = Astro().obs;
+  Future<void> astroWeathers(double latitude, double longitude) async {
+    String token = Storage.token;
+    astrodWeather.value = await service.cloudAstro({
+      'q': '$latitude,$longitude',
+      'key': token,
+    });
+    print('sunset: ${astrodWeather.value.sunset}');
+  }
+
 
 }
