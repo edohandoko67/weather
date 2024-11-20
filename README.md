@@ -21,5 +21,5 @@ https://github.com/user-attachments/assets/0d4b53da-6f0b-4bab-9a55-a371f5a983ca
 ## Gambar 
 <div style="display: flex; justify-content: center;">
 
-  <img src="https://github.com/edohandoko67/weather/blob/master/assets/images/ss.PNG" width="255" style="margin: 10px;">
+  <img src="https://github.com/edohandoko67/weather/blob/master/assets/images/img.PNG" width="255" style="margin: 10px;">
 </div>
