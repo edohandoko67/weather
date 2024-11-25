@@ -4,6 +4,8 @@
 *.pyc
 *.swp
 .DS_Store
+/android/local.properties
+.env
 .atom/
 .buildlog/
 .history

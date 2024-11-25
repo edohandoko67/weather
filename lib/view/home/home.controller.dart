@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -105,7 +106,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> getCurrentLocationAndFetchWeather() async {
-    String token = "0eebf592bc10442ab0c25754241811";
+    String token = '${dotenv.env['KEY_TOKEN']}';
     Storage.token = token;
 
     // Mengambil token

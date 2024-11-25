@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -24,6 +25,7 @@ void main() async {
   // print("Token after clearing: ${Storage.token}");  // Output: Token after clearing:
   await GetStorage.init();
   await AppPathProvider.initPath();
+  await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 void loadingInstance() {
